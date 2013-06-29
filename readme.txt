@@ -1,1 +1,1 @@
-This is a test readme file
+A basic Snake game in C#.NET. Pretty basic just to refresh my programming knowledge.
