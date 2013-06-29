@@ -34,6 +34,7 @@ namespace Snake
         private void Form1_Load(object sender, EventArgs e)
         {
             snake.SnakeFormWidth = this.ClientRectangle.Width;
+            snake.SnakeFormHeight = this.ClientRectangle.Height;
             _frmObj = this;
         }
 
@@ -42,6 +43,7 @@ namespace Snake
             food = new Food();
             snake = new Snake();
             snake.SnakeFormWidth = this.ClientRectangle.Width;
+            snake.SnakeFormHeight = this.ClientRectangle.Height;
             score = new Scoreboard();
             direction = "right";
         }

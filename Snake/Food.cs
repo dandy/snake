@@ -14,7 +14,7 @@ namespace Snake
         {
             Random rnd = new Random();
             int x = rnd.Next(0, 280);
-            int y = rnd.Next(0, 200);
+            int y = rnd.Next(30, 200);
 
             foodObj = new Rectangle(x, y, 10, 10);
         }
@@ -23,7 +23,7 @@ namespace Snake
         {
             Random rnd = new Random();
             int x = rnd.Next(0, 280);
-            int y = rnd.Next(0, 200);
+            int y = rnd.Next(30, 200);
 
             foodObj = new Rectangle(x, y, 10, 10);
 
@@ -33,7 +33,7 @@ namespace Snake
                 if (foodObj.IntersectsWith(snakeFood.snakeRec[i]))
                 {
                      x = rnd.Next(0, 280);
-                     y = rnd.Next(0, 200);
+                     y = rnd.Next(30, 200);
 
                     foodObj = new Rectangle(x, y, 10, 10);
                 }

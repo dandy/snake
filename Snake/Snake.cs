@@ -17,6 +17,7 @@ namespace Snake
         int x, y;
         public string currentDirection;
         public int SnakeFormWidth;
+        public int SnakeFormHeight;
 
         //Making Singleton so that single object is available througout the application
         private static Snake instance = null;
@@ -126,6 +127,23 @@ namespace Snake
                     snakeRec[0].X = -10;
                 }
             }
+
+            if (snakeRec[0].Y - 10 < 0)
+            {
+                if (direction == "up")
+                {
+                    snakeRec[0].Y = SnakeFormHeight;
+                }
+            }
+
+            if (snakeRec[0].Y + 10 >= SnakeFormHeight)
+            {
+                if (direction == "down")
+                {
+                    snakeRec[0].Y = -10;
+                }
+            }
+
 
             //Setting snake HEAD to direction. If left the snake HEAD rectangle X is decreased
             if (direction == "left")
