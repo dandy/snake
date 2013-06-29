@@ -42,7 +42,6 @@ namespace Snake
             food = new Food();
             snake = new Snake();
             snake.SnakeFormWidth = this.ClientRectangle.Width;
-
             score = new Scoreboard();
             direction = "right";
         }
