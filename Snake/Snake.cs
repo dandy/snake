@@ -76,7 +76,7 @@ namespace Snake
 
             snakeRec = snakeTemp;
 
-            
+
         }
 
         //Draw is called in on FormPaint event, that draws all the rectangles in the snakeRec array
@@ -143,6 +143,31 @@ namespace Snake
             if (direction == "up")
                 snakeRec[0].Y = snakeRec[0].Y - 10;
 
+        }
+
+        internal void Reset()
+        {
+            SnakeFormWidth = 0;
+            snakeRec = new Rectangle[10];
+            x = 50;
+            y = 0;
+            brush = new SolidBrush(Color.Blue);
+            currentDirection = "right";
+
+            for (int i = 0; i < snakeRec.Length; i++)
+            {
+                if (i == 0)
+                {
+                    snakeRec[i] = new Rectangle(x, y, 9, 9);
+
+                }
+                else
+                {
+                    snakeRec[i] = new Rectangle(x, y, 9, 9);
+
+                }
+                x = x - 10;
+            }
         }
     }
 }
