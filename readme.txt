@@ -1,1 +1,1 @@
-A basic Snake game in C#.NET. Pretty basic just to refresh my programming knowledge.
+This is a bacis Snake game written in C# using Windows Forms. Visual Studio 2012 is used to create this game.
