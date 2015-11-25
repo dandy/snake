@@ -23,7 +23,7 @@ namespace Snake
 
         Scoreboard score = new Scoreboard();
         Graphics paper;
-        Snake snake = Snake.getInstance();
+        Snake snake = Snake.GetInstance();
         Food food = new Food();
 
         public Snakeform()
@@ -82,7 +82,7 @@ namespace Snake
         public void EatFood()
         {
 
-            if (snake.snakeRec[0].IntersectsWith(food.foodObj))
+            if (snake.SnakeRec[0].IntersectsWith(food.FoodObj))
             {
                 Console.WriteLine("Food eaten");
                 food.CreateFood();
@@ -96,9 +96,9 @@ namespace Snake
 
         public void IfCollidedWithOwnBody()
         {
-            for (int i = 2; i < snake.snakeRec.Length - 1; i++)
+            for (int i = 2; i < snake.SnakeRec.Length - 1; i++)
             {
-                if (snake.snakeRec[i].IntersectsWith(snake.snakeRec[0]))
+                if (snake.SnakeRec[i].IntersectsWith(snake.SnakeRec[0]))
                 {
                     ResetOptions();
 

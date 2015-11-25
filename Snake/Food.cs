@@ -1,50 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
+using System.Linq;
+
 namespace Snake
 {
-    class Food
+    public class Food
     {
-        public Rectangle foodObj;
-
+        public Rectangle FoodObj;
         public Food()
         {
-            Random rnd = new Random();
-            int x = rnd.Next(0, 280);
-            int y = rnd.Next(30, 200);
+            var rnd = new Random();
+            var x = rnd.Next(0, 280);
+            var y = rnd.Next(30, 200);
 
-            foodObj = new Rectangle(x, y, 10, 10);
+            FoodObj = new Rectangle(x, y, 10, 10);
         }
 
         public void CreateFood()
         {
-            Random rnd = new Random();
-            int x = rnd.Next(0, 280);
-            int y = rnd.Next(30, 200);
+            var rnd = new Random();
+            var x = rnd.Next(0, 280);
+            var y = rnd.Next(30, 200);
 
-            foodObj = new Rectangle(x, y, 10, 10);
+            FoodObj = new Rectangle(x, y, 10, 10);
 
-            Snake snakeFood = Snake.getInstance();
-            for (int i = 0; i < snakeFood.snakeRec.Length; i++)
+            var snakeFood = Snake.GetInstance();
+            foreach (var t in snakeFood.SnakeRec.Where(t => FoodObj.IntersectsWith(t)))
             {
-                if (foodObj.IntersectsWith(snakeFood.snakeRec[i]))
-                {
-                     x = rnd.Next(0, 280);
-                     y = rnd.Next(30, 200);
-
-                    foodObj = new Rectangle(x, y, 10, 10);
-                }
+                x = rnd.Next(0, 280);
+                y = rnd.Next(30, 200);
+                FoodObj = new Rectangle(x, y, 10, 10);
             }
-
         }
 
         public void MakeFood(Graphics g)
         {
-            g.FillRectangle(new SolidBrush(Color.Black), foodObj);
-
+            g.FillRectangle(new SolidBrush(Color.Black), FoodObj);
         }
     }
 }

@@ -1,58 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Snake
 {
-    class Snake
+    public class Snake
     {
-        public Rectangle[] snakeRec; // snake structure is represented as array of rectangles
-        Brush brush;
-        int x, y;
-        public string currentDirection;
+        public Rectangle[] SnakeRec; // snake structure is represented as array of rectangles
+        Brush _brush;
+        int _x, _y;
+        private string _currentDirection;
         public int SnakeFormWidth;
         public int SnakeFormHeight;
 
         //Making Singleton so that single object is available througout the application
-        private static Snake instance = null;
-        public static Snake getInstance()
+        private static Snake _instance = null;
+        public static Snake GetInstance()
         {
-            if (instance == null)
-            {
-                instance = new Snake();
-            }
-            return instance;
+            return _instance ?? (_instance = new Snake());
         }
-
 
         public Snake()
         {
             SnakeFormWidth = 0;
-            snakeRec = new Rectangle[10];
-            x = 50;
-            y = 0;
-            brush = new SolidBrush(Color.Blue);
-            currentDirection = "right";
+            SnakeRec = new Rectangle[10];
+            _x = 50;
+            _y = 0;
+            _brush = new SolidBrush(Color.Blue);
+            _currentDirection = "right";
 
-            for (int i = 0; i < snakeRec.Length; i++)
+            for (var i = 0; i < SnakeRec.Length; i++)
             {
                 if (i == 0)
                 {
-                    snakeRec[i] = new Rectangle(x, y, 9, 9);
-
+                    SnakeRec[i] = new Rectangle(_x, _y, 9, 9);
                 }
                 else
                 {
-                    snakeRec[i] = new Rectangle(x, y, 9, 9);
-
+                    SnakeRec[i] = new Rectangle(_x, _y, 9, 9);
                 }
-                x = x - 10;
+                _x = _x - 10;
             }
 
         }
@@ -64,27 +51,23 @@ namespace Snake
         public void IncreaseLength()
         {
             // A new array with +1 length than the current snakeRec array
-            Rectangle[] snakeTemp = new Rectangle[snakeRec.Count() + 1];
-            int j = 0;
-            for (int i = 1; i < snakeTemp.Count(); i++)
+            var snakeTemp = new Rectangle[SnakeRec.Count() + 1];
+            var j = 0;
+            for (var i = 1; i < snakeTemp.Count(); i++)
             {
-
-                snakeTemp[i] = snakeRec[j];
+                snakeTemp[i] = SnakeRec[j];
                 j++;
             }
             //New head rectangle, with the same points as the previous HEAD coordinates
-            snakeTemp[0] = new Rectangle(snakeRec[0].X, snakeRec[0].Y, 9, 9);
-
-            snakeRec = snakeTemp;
-
-
+            snakeTemp[0] = new Rectangle(SnakeRec[0].X, SnakeRec[0].Y, 9, 9);
+            SnakeRec = snakeTemp;
         }
 
         //Draw is called in on FormPaint event, that draws all the rectangles in the snakeRec array
         public void Draw(Graphics g)
         {
-            int i = 0;
-            foreach (Rectangle rec in snakeRec)
+            var i = 0;
+            foreach (var rec in SnakeRec)
             {
                 if (i == 0)
                 {
@@ -97,94 +80,85 @@ namespace Snake
                     g.FillRectangle(new SolidBrush(Color.Red), rec);
                 }
             }
-
         }
 
         internal void Move(string direction)
         {
             //Save snake rectangles states
-            for (int i = snakeRec.Length - 1; i > 0; i--)
+            for (var i = SnakeRec.Length - 1; i > 0; i--)
             {
-                snakeRec[i] = snakeRec[i - 1];
+                SnakeRec[i] = SnakeRec[i - 1];
             }
 
             //Left wall collision detection
             // If collides with left wall, spawn the snake from the right side
-            if (snakeRec[0].X - 10 < 0)
+            if (SnakeRec[0].X - 10 < 0)
             {
                 if (direction == "left")
                 {
-                    snakeRec[0].X = SnakeFormWidth;
+                    SnakeRec[0].X = SnakeFormWidth;
                 }
             }
 
             //Right wall collision detection
             //If snake collides with right wall, spawn snake from the left.
-            if (snakeRec[0].X + 10 >= SnakeFormWidth)
+            if (SnakeRec[0].X + 10 >= SnakeFormWidth)
             {
                 if (direction == "right")
                 {
-                    snakeRec[0].X = -10;
+                    SnakeRec[0].X = -10;
                 }
             }
 
-            if (snakeRec[0].Y - 10 < 0)
+            if (SnakeRec[0].Y - 10 < 0)
             {
                 if (direction == "up")
                 {
-                    snakeRec[0].Y = SnakeFormHeight;
+                    SnakeRec[0].Y = SnakeFormHeight;
                 }
             }
 
-            if (snakeRec[0].Y + 10 >= SnakeFormHeight)
+            if (SnakeRec[0].Y + 10 >= SnakeFormHeight)
             {
                 if (direction == "down")
                 {
-                    snakeRec[0].Y = -10;
+                    SnakeRec[0].Y = -10;
                 }
             }
-
 
             //Setting snake HEAD to direction. If left the snake HEAD rectangle X is decreased
             if (direction == "left")
             {
-                snakeRec[0].X = snakeRec[0].X - 10;
+                SnakeRec[0].X = SnakeRec[0].X - 10;
             }
             if (direction == "right")
             {
-                snakeRec[0].X = snakeRec[0].X + 10;
+                SnakeRec[0].X = SnakeRec[0].X + 10;
             }
             if (direction == "down")
             {
-                snakeRec[0].Y = snakeRec[0].Y + 10;
+                SnakeRec[0].Y = SnakeRec[0].Y + 10;
             }
             if (direction == "up")
-                snakeRec[0].Y = snakeRec[0].Y - 10;
+                SnakeRec[0].Y = SnakeRec[0].Y - 10;
 
         }
 
         internal void Reset()
         {
             SnakeFormWidth = 0;
-            snakeRec = new Rectangle[10];
-            x = 50;
-            y = 0;
-            brush = new SolidBrush(Color.Blue);
-            currentDirection = "right";
+            SnakeRec = new Rectangle[10];
+            _x = 50;
+            _y = 0;
+            _brush = new SolidBrush(Color.Blue);
+            _currentDirection = "right";
 
-            for (int i = 0; i < snakeRec.Length; i++)
+            for (int i = 0; i < SnakeRec.Length; i++)
             {
                 if (i == 0)
-                {
-                    snakeRec[i] = new Rectangle(x, y, 9, 9);
-
-                }
-                else
-                {
-                    snakeRec[i] = new Rectangle(x, y, 9, 9);
-
-                }
-                x = x - 10;
+                    SnakeRec[i] = new Rectangle(_x, _y, 9, 9);
+                else SnakeRec[i] = new Rectangle(_x, _y, 9, 9);
+                _x = _x - 10;
             }
         }
     }
